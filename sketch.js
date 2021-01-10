@@ -71,7 +71,7 @@
     cloudsGroup = new Group();
     obstaclesGroup = new Group();
 
-    camera.position.x=trex.x;
+   // camera.position.x=trex.x;
 
     
     score = 0;
