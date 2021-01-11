@@ -70,9 +70,6 @@
     
     cloudsGroup = new Group();
     obstaclesGroup = new Group();
-
-    camera.position.x=trex.x;
-
     
     score = 0;
   }
@@ -134,6 +131,8 @@
       if(mousePressedOver(restart)) {
         reset();
       }
+
+      camera.position.x=trex.x;
     }
 
     drawSprites();
