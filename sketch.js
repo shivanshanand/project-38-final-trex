@@ -152,7 +152,7 @@
         cloud.velocityX = -6;
         
         //assign lifetime to the variable
-        cloud.lifetime = 220;
+        cloud.lifetime = 210;
         
         //adjust the depth
         cloud.depth = trex.depth;
