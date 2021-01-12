@@ -91,13 +91,13 @@
           trex.velocityY = -12;
           jumpSound.play();
         }
+          
+        trex.velocityY = trex.velocityY + 0.8
 
         if(score>0 && score%100 === 0){
           checkPointSound.play() 
       }
-      
-        trex.velocityY = trex.velocityY + 0.8
-      
+            
         if (ground.x < 0){
           ground.x = ground.width/2;
         }
