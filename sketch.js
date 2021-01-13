@@ -42,7 +42,7 @@
     function setup() {
       createCanvas(windowWidth-50, windowHeight-20);
       
-      trex = createSprite(50,180,20,50);
+      trex = createSprite(50,500,20,50);
       
       trex.addAnimation("running", trex_running);
       trex.addAnimation("collided", trex_collided);
@@ -53,10 +53,10 @@
       ground.x = ground.width/2;
       ground.velocityX = -(12 + 3*score/300);
       
-      gameOver = createSprite(300,100);
+      gameOver = createSprite(windowWidth/2-650,windowHeight/2-100);
       gameOver.addImage(gameOverImg);
       
-      restart = createSprite(300,140);
+      restart = createSprite(windowWidth/2-650,windowHeight/2-70);
       restart.addImage(restartImg);
       
       gameOver.scale = 0.5;
@@ -87,12 +87,12 @@
         score = score + Math.round(getFrameRate()/60);
         ground.velocityX = -(6 + 3*score/100);
       
-        if(keyDown("space") && trex.y >= 159) {
+        if(keyDown("space") && trex.y >= 560) {
           trex.velocityY = -12;
           jumpSound.play();
         }
-          
-        trex.velocityY = trex.velocityY + 0.8
+
+        trex.velocityY = trex.velocityY + 0.8;
 
         if(score>0 && score%100 === 0){
           checkPointSound.play() 
@@ -109,7 +109,9 @@
         if(obstaclesGroup.isTouching(trex)){
           jumpSound.play();
           gameState = END;
-          dieSound.play();      }
+          dieSound.play();      
+        }
+        camera.position.x=trex.x;
       }
       else if (gameState === END) {
         gameOver.visible = true;
@@ -135,8 +137,6 @@
         if(mousePressedOver(restart)) {
           reset();
         }
-
-        camera.position.x=trex.x;
       }
 
       drawSprites();
@@ -152,7 +152,7 @@
         cloud.velocityX = -6;
         
         //assign lifetime to the variable
-        cloud.lifetime = 210;
+        cloud.lifetime = 220;
         
         //adjust the depth
         cloud.depth = trex.depth;
@@ -166,13 +166,13 @@
 
     function spawnObstacles() {
       if(frameCount % 60 === 0) {
-        var obstacle = createSprite(windowWidth/2+camera.position.x-60,580,10,40);
+        var obstacle = createSprite(windowWidth/2+camera.position.x-60,585,10,40);
         //obstacle.debug = true;
         obstacle.velocityX = -(12 + 3*score/300);
         
         //generate random obstacles
-        var rand = Math.round(random(1,6));
-        switch(rand) {
+        var s = Math.round(random(1,6));
+        switch(s) {
           case 1: obstacle.addImage(obstacle1);
                   break;
           case 2: obstacle.addImage(obstacle2);
