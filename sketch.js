@@ -11,11 +11,13 @@
     var score=0;
 
     var gameOver, restart;
-    var jumpSound , checkPointSound, dieSound;
+    var jumpSound , checkPointSound, dieSound, bgImg;
 
     localStorage["HighestScore"] = 0;
 
     function preload(){
+    //  bgImg=loadImage("");
+
       trex_running =   loadAnimation("trex1.png","trex3.png","trex4.png");
       trex_collided = loadAnimation("trex_collided.png");
       
@@ -43,6 +45,7 @@
       createCanvas(windowWidth-50, windowHeight-20);
       
       trex = createSprite(50,500,20,50);
+      trex.x=width/2;
       
       trex.addAnimation("running", trex_running);
       trex.addAnimation("collided", trex_collided);
@@ -53,10 +56,10 @@
       ground.x = ground.width/2;
       ground.velocityX = -(12 + 3*score/300);
       
-      gameOver = createSprite(windowWidth/2-650,windowHeight/2-100);
+      gameOver = createSprite(windowWidth/2,windowHeight/2-100);
       gameOver.addImage(gameOverImg);
       
-      restart = createSprite(windowWidth/2-650,windowHeight/2-70);
+      restart = createSprite(windowWidth/2,windowHeight/2-70);
       restart.addImage(restartImg);
       
       gameOver.scale = 0.5;
