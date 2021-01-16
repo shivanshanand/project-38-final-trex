@@ -187,7 +187,7 @@
         cloud.y = Math.round(random(100,150));
         cloud.addImage(cloudImage);
         cloud.scale = 0.4;
-        cloud.velocityX = -(12 + 3*score/300);
+        cloud.velocityX = -(13 + 3*score/250);
         
         //assign lifetime to the variable
         cloud.lifetime = 220;
@@ -206,7 +206,7 @@
       if(frameCount % 60 === 0) {
         var obstacle = createSprite(windowWidth/2+camera.position.x-50,579,10,40);
         //obstacle.debug = true;
-        obstacle.velocityX = -(12 + 3*score/300);
+        obstacle.velocityX = -(13 + 3*score/250);
         
         //generate random obstacles
         var s = Math.round(random(1,6));
@@ -240,7 +240,7 @@
       coin.y=Math.round(random(340,450));
       coin.addImage("coin",coinImg);
       coin.scale=0.06;
-      coin.velocityX=-(13 + 3*score/300);
+      coin.velocityX=-(13 + 3*score/250);
 
       //add lifetime
       coin.lifetime=200;
