@@ -111,7 +111,7 @@
           background1.x = background1.width/2;
         }
 
-        background1.velocityX=-(13 + 3*score/100);
+        background1.velocityX=-(12 + 3*score/120);
 
         score = score + Math.round(getFrameRate()/60);
         ground.velocityX = -(6 + 3*score/100);
