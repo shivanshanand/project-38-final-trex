@@ -12,24 +12,24 @@
 
     var gameOver, restart;
     var jumpSound , checkPointSound, dieSound;
-    var coin, coinImg;
+    var coin, coinImg, coinSound;
 
     var points=0;
 
     localStorage["HighestScore"] = 0;
 
     function preload(){
-      bgImg=loadImage("desert2.jpg");
+      bgImg=loadImage("desert7.jpg");
 
       trex_running =   loadAnimation("trex1.png","trex3.png","trex4.png");
       trex_collided = loadAnimation("trex_collided.png");
       
       groundImage = loadImage("ground2.png");
       
-      cloudImage = loadImage("cloud final.png");
+      cloudImage = loadImage("cloudimg.jpg");
       
-      obstacle1 = loadImage("obstacle1.png");
-      obstacle2 = loadImage("obstacle2.png");
+      obstacle1 = loadImage("obstacle5.png");
+      obstacle2 = loadImage("obstacle4.png");
       obstacle3 = loadImage("obstacle3.png");
       obstacle4 = loadImage("obstacle4.png");
       obstacle5 = loadImage("obstacle5.png");
@@ -43,14 +43,15 @@
       jumpSound = loadSound("jump.mp3");
       dieSound = loadSound("die.mp3");
       checkPointSound = loadSound("checkPoint.mp3");
+      coinSound=loadSound("Collect Coin.mp3");
     }
 
     function setup() {
       createCanvas(windowWidth , windowHeight);
 
-     // background1=createSprite(700,330,windowWidth,windowHeight);
-      //background1.addImage("bg",bgImg);
-      //background1.velocityX=-(12 + 3*score/300);
+      background1=createSprite(800,140,20,20);
+      background1.addImage("bg",bgImg);
+      background1.scale=1.7;
       
       trex = createSprite(50,500,20,50);
       trex.x=width/2;
@@ -63,6 +64,7 @@
       ground.addImage("ground",groundImage);
       ground.x = ground.width/2;
       ground.velocityX = -(12 + 3*score/300);
+      ground.visible=false;
       
       gameOver = createSprite(windowWidth/2,windowHeight/2-100);
       gameOver.addImage(gameOverImg);
@@ -92,18 +94,25 @@
 
     function draw() {
       //trex.debug = true;
-      background(bgImg);
+      background(255);
+      drawSprites();
 
       fill("black")
       textSize(20)
-      text("Score: "+ score, windowWidth/2+camera.position.x-200,80);
-      text("Highest score: " + localStorage["HighestScore"],windowWidth/2+camera.position.x-200,100);
+      text("Score: "+ score, windowWidth/2+camera.position.x-200,40);
+      text("Highest score: " + localStorage["HighestScore"],windowWidth/2+camera.position.x-200,60);
 
       fill("green");
       textSize(20);
-      text("Points:" + points,windowWidth/2,60);
+      text("Points: $" + points,windowWidth/2,40);
 
       if (gameState===PLAY){
+        if (background1.x < 300){
+          background1.x = background1.width/2;
+        }
+
+        background1.velocityX=-(12 + 3*score/300);
+
         score = score + Math.round(getFrameRate()/60);
         ground.velocityX = -(6 + 3*score/100);
       
@@ -114,7 +123,7 @@
 
         trex.velocityY = trex.velocityY + 0.9;
 
-        if(score>0 && score%100 === 0){
+        if(score>0 && score%1000 === 0){
           checkPointSound.play() 
       }
             
@@ -135,6 +144,7 @@
 
         if(coinGroup.isTouching(trex)){
           points=points+500;
+          coinSound.play();
           coinGroup.destroyEach();
         }
 
@@ -154,6 +164,7 @@
         obstaclesGroup.setVelocityXEach(0);
         cloudsGroup.setVelocityXEach(0);
         coinGroup.setVelocityXEach(0);
+        background1.velocityX=0;
         
         //change the trex animation
         trex.changeAnimation("collided",trex_collided);
@@ -167,17 +178,15 @@
           reset();
         }
       }
-
-      drawSprites();
     }
 
     function spawnClouds() {
       //write code here to spawn the clouds
       if (frameCount % 30 === 0) {
-        var cloud = createSprite(windowWidth/2+camera.position.x-60,200,40,10);
-        cloud.y = Math.round(random(150,200));
+        var cloud = createSprite(windowWidth/2+camera.position.x-60,170,40,10);
+        cloud.y = Math.round(random(100,150));
         cloud.addImage(cloudImage);
-        cloud.scale = 0.1;
+        cloud.scale = 0.4;
         cloud.velocityX = -(12 + 3*score/300);
         
         //assign lifetime to the variable
@@ -195,7 +204,7 @@
 
     function spawnObstacles() {
       if(frameCount % 60 === 0) {
-        var obstacle = createSprite(windowWidth/2+camera.position.x-50,585,10,40);
+        var obstacle = createSprite(windowWidth/2+camera.position.x-50,579,10,40);
         //obstacle.debug = true;
         obstacle.velocityX = -(12 + 3*score/300);
         
@@ -218,7 +227,7 @@
         }
         
         //assign scale and lifetime to the obstacle           
-        obstacle.scale = 0.6;
+        obstacle.scale = 0.7;
         obstacle.lifetime = 300;
         //add each obstacle to the group
         obstaclesGroup.add(obstacle);
@@ -228,10 +237,10 @@
     function createcoins(){
       if(frameCount % 60 === 0){
       coin=createSprite(windowWidth+10,200,20,20);
-      coin.y=Math.round(random(350,480));
+      coin.y=Math.round(random(340,450));
       coin.addImage("coin",coinImg);
       coin.scale=0.06;
-      coin.velocityX=-(12 + 3*score/300);
+      coin.velocityX=-(13 + 3*score/300);
 
       //add lifetime
       coin.lifetime=200;
@@ -259,5 +268,6 @@
       console.log(localStorage["HighestScore"]);
       
       score = 0;
+      points = 0;
       
     }
