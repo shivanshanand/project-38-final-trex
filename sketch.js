@@ -237,7 +237,7 @@
     function createcoins(){
       if(frameCount % 70 === 0){
       coin=createSprite(windowWidth+10,200,20,20);
-      coin.y=Math.round(random(340,450));
+      coin.y=Math.round(random(350,440));
       coin.addImage("coin",coinImg);
       coin.scale=0.06;
       coin.velocityX=-(13 + 3*score/100);
