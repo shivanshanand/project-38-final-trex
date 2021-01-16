@@ -187,7 +187,7 @@
         cloud.y = Math.round(random(100,150));
         cloud.addImage(cloudImage);
         cloud.scale = 0.4;
-        cloud.velocityX = -(12 + 3*score/100);
+        cloud.velocityX = -(12 + 3*score/120);
         
         //assign lifetime to the variable
         cloud.lifetime = 220;
